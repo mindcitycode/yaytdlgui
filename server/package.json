@@ -1,5 +1,5 @@
 {
-  "name": "dl-serve",
+  "name": "yaytdlgui-server",
   "version": "1.0.0",
   "description": "",
   "main": "src/client/index.js",
