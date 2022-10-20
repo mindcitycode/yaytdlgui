@@ -9,8 +9,8 @@
     "serve": "npx webpack serve --mode=development",
     "build": "npx webpack --mode=production"
   },
-  "author": "Your Name <me@example.com> (http://example.com/)",
-  "license": "ISC",
+  "author": "mindcitycode <mindcity@proton.me>",
+  "license": "GNU GPLV3+",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

@@ -9,6 +9,6 @@
     "postinstall":"(cd client && npm install && npm run build); (cd server && npm install)",
     "start":"(cd server && npm start)"
   },
-  "author": "Your Name <me@example.com> (http://example.com/)",
-  "license": "ISC"
+  "author": "mindcitycode <mindcity@proton.me>",
+  "license": "GNU GPLV3+"
 }

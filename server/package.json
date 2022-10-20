@@ -10,8 +10,8 @@
     "build": "npx webpack --mode=production",
     "start": "node src/index.js"
   },
-  "author": "Your Name <me@example.com> (http://example.com/)",
-  "license": "ISC",
+  "author": "mindcitycode <mindcity@proton.me>",
+  "license": "GNU GPLV3+",
   "dependencies": {
     "async-exit-hook": "^2.0.1",
     "cors": "^2.8.5",
