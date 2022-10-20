@@ -30,5 +30,6 @@ export const op = {
         return dbRunPromise(`UPDATE downloads SET status = "${status}" WHERE url="${url}"`)
     },
     resumeStatus: async () => dbRunPromise(`UPDATE downloads SET status = "waiting" WHERE status="downloading"`),
-    retry: async url => dbRunPromise(`UPDATE downloads SET status = "waiting" WHERE status="error" AND url="${url}"`)
+    retry: async url => dbRunPromise(`UPDATE downloads SET status = "waiting" WHERE status="error" AND url="${url}"`),
+    purge: async () => dbRunPromise("DELETE from downloads"),
 }

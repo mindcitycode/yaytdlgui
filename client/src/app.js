@@ -57,6 +57,7 @@ const wsApi = {
     addUrl: url => send({ type: 'add-url', url }),
     retry: url => send({ type: 'retry-url', url }),
     getDownloads: () => send({ get: 'downloads' }),
+    purge: () => send({ type : 'purge'}),    
 }
 ws.onopen = () => {
     wsApi.getDownloads()
@@ -68,8 +69,10 @@ export const App = () => {
     const refreshInterval = 10000
     const [downloads, setDownloads] = useState([])
     const [progressDump, setProgressDump] = useState('')
+    
     const [progress, setProgress] = useState('')
     const [progressUrl, setProgressUrl] = useState('')
+    
     /*
     const progress = {
         eta: "00:00",
@@ -82,6 +85,7 @@ export const App = () => {
     function setProgress() { }
     function setProgressUrl() { }
     */
+    
     useEffect(() => {
         /*const*/ //send = msg => ws.send(JSON.stringify(msg))
         /*   ws.onopen = () => {
@@ -127,6 +131,9 @@ export const App = () => {
     const refresh = async () => {
         wsApi.getDownloads()
     }
+    const purge = async () => {
+        wsApi.purge()
+    }
 
     const retry = async (url) => {
         console.log('PLEASE RETRY', url)
@@ -134,11 +141,13 @@ export const App = () => {
     }
     const liste = downloads.map(line => <Line key={line.id} url={line.url} status={line.status} date={line.date} retry={retry} />)
     return <>
+        <h1>paste URLs</h1>
         <AddBox addDownloads={addDownloads} />
         <h1>progress</h1>
         <Progress progress={progress} progressUrl={progressUrl} progressDump={progressDump} />
         <h1>downloads</h1>
         <button onClick={refresh}>refresh</button>
+        <button onClick={purge}>purge</button>
         <table className="downloads">
             <thead><tr><th>status</th><th></th><th>date</th><th>url</th></tr></thead>
             <tbody>{liste}</tbody>

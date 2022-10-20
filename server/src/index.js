@@ -20,6 +20,13 @@ const sendAllClients = msg => {
         clientSend(msg)
     }
 }
+const massBunkSend = async () => {
+    const result = await op.dump()
+    if (result.rows) {
+        sendAllClients({ type: 'downloads', downloads: result.rows })
+    }
+}
+
 app.ws('/ws', async (ws, req) => {
     const send = msg => ws.send(JSON.stringify(msg))
     clientSends.add(send)
@@ -37,20 +44,22 @@ app.ws('/ws', async (ws, req) => {
             wslog('client adds url', msg.url)
             const result = await op.addURL(msg.url)
             if (result.changes) {
-                const result = await op.dump()
-                if (result.rows.length) {
-                    sendAllClients({ type: 'downloads', downloads: result.rows })
-                }
+                await massBunkSend()
                 await treat()
             }
         } else if (msg.type === 'retry-url') {
             wslog('client wants retry', msg.url)
             const result = await op.retry(msg.url)
             if (result.changes) {
-                const result = await op.dump()
-                if (result.rows.length) {
-                    sendAllClients({ type: 'downloads', downloads: result.rows })
-                }
+                await massBunkSend()
+                await treat()
+            }
+        } else if (msg.type === 'purge') {
+            wslog('client wants purge')
+            const result = await op.purge()
+            console.log(result)
+            if (result.changes) {
+                await massBunkSend()
                 await treat()
             }
         }
@@ -86,10 +95,7 @@ const treat = async () => {
             ytdllog(`an url is waiting : ${oneWaiting.url}`)
             const result = await op.updateStatus(oneWaiting.url, "downloading")
             if (result.changes) {
-                const result = await op.dump()
-                if (result.rows.length) {
-                    sendAllClients({ type: 'downloads', downloads: result.rows })
-                }
+                await massBunkSend()
             }
         }
         {
@@ -106,10 +112,7 @@ const treat = async () => {
 
             const result = await op.updateStatus(oneWaiting.url, newStatus)
             if (result.changes) {
-                const result = await op.dump()
-                if (result.rows.length) {
-                    sendAllClients({ type: 'downloads', downloads: result.rows })
-                }
+                await massBunkSend()
             }
             treat()
         }
