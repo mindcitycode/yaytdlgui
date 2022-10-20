@@ -2,11 +2,12 @@ import sqlite3 from 'sqlite3'
 import exitHook from 'async-exit-hook'
 import { log } from './log.js'
 
+export const dblog = (...r) => log('db', ...r)
+
 exitHook((...a) => {
-    console.log('exiting', ...a);
+    dblog('exiting', ...a);
     db.close();
 });
-const dblog = (...r) => log('db', ...r)
 
 const DB_FILENAME = 'database.db' // ':memory:'
 const db = new sqlite3.Database(DB_FILENAME);
@@ -33,3 +34,45 @@ export const op = {
     retry: async url => dbRunPromise(`UPDATE downloads SET status = "waiting" WHERE status="error" AND url="${url}"`),
     purge: async () => dbRunPromise("DELETE from downloads"),
 }
+
+
+
+const testit = async () => {
+    let result
+    result = await op.create()
+    dblog(result)
+    result = await op.addURL("url1")
+    dblog(result)
+    result = await op.addURL("url2")
+    dblog(result)
+    result = await op.dump()
+    dblog(result)
+    result = await op.getByStatus('waiting')
+    dblog(result)
+    result = await op.updateStatus('url1', 'downloading')
+    dblog(result)
+    result = await op.getByStatus('waiting')
+    dblog(result)
+    result = await op.getByStatus('downloading')
+    dblog(result)
+    result = await op.resumeStatus()
+    dblog('RESUME', result)
+    result = await op.getByStatus('waiting')
+    dblog(result)
+    result = await op.getByStatus('downloading')
+    dblog(result)
+    result = await op.updateStatus('url1', 'error')
+    dblog(result)
+    result = await op.updateStatus('url2', 'error')
+    dblog(result)
+    result = await op.retry('url1')
+    dblog(result)
+    result = await op.getByStatus('waiting')
+    dblog(result)
+    result = await op.updateStatus('url2', 'downloading')
+    dblog(result)
+    result = await op.getByStatus('not-existing-status')
+    dblog(result)
+
+}
+//testit()

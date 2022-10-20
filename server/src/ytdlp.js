@@ -70,21 +70,3 @@ export const download = async (url, callback) => {
     })
     return await outputs
 }
-//console.log('go', todayPath())
-
-/*
-async function go() {
-    //console.log(todayPath())
-   const promiseResult = await download(url,(...p)=>{
-        console.log('begin UPDATE==========')
-        console.log(...p)
-        console.log('end UPDATE==========')
-        console.log(p[0].outputs.stdout.join("\n"))
-        console.log('end more UPDATE==========')
-
-    })
-    console.log('==== OVER ====')
-    console.log(promiseResult)
-
-}
-go()*/

@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import expressWs from 'express-ws';
 import { log } from './log.js'
-import { op } from './persist.js'
+import { op, dblog } from './persist.js'
 
 const PORT = 61661;
 
@@ -57,7 +57,6 @@ app.ws('/ws', async (ws, req) => {
         } else if (msg.type === 'purge') {
             wslog('client wants purge')
             const result = await op.purge()
-            console.log(result)
             if (result.changes) {
                 await massBunkSend()
                 await treat()
@@ -105,7 +104,7 @@ const treat = async () => {
                     progress: p[1].progress,
                     url: oneWaiting.url
                 }
-                console.log('progress message', progressMsg)
+                wslog('progress message', progressMsg)
                 sendAllClients(progressMsg)
             })
             const newStatus = (finalDownloadState.code === 0) ? 'downloaded' : 'error'
@@ -126,12 +125,12 @@ const main = async () => {
     {
         // create db if not exist
         const result = await op.create()
-        console.log(result)
+        dblog(result)
     }
     {
         // downloading -> waiting
         const result = await op.resumeStatus()
-        console.log(`resume ${result.changes} download(s)`)
+        dblog(`resume ${result.changes} download(s)`)
     }
     {
         // start downloading
@@ -140,68 +139,13 @@ const main = async () => {
     {
         // start websocket webserver
         app.listen(PORT, err => {
-            if (err) console.log(err);
-            console.log("Server listening on PORT", PORT);
+            if (err) wslog("Cannot start server",err);
+            wslog("Server listening on PORT", PORT);
         });
     }
 }
 
-const testit = async () => {
-    let result
-    result = await op.create()
-    console.log(result)
-    result = await op.addURL("url1")
-    console.log(result)
-    result = await op.addURL("url2")
-    console.log(result)
-    result = await op.dump()
-    console.log(result)
-    result = await op.getByStatus('waiting')
-    console.log(result)
-    result = await op.updateStatus('url1', 'downloading')
-    console.log(result)
-    result = await op.getByStatus('waiting')
-    console.log(result)
-    result = await op.getByStatus('downloading')
-    console.log(result)
-    result = await op.resumeStatus()
-    console.log('RESUME', result)
-    result = await op.getByStatus('waiting')
-    console.log(result)
-    result = await op.getByStatus('downloading')
-    console.log(result)
-    result = await op.updateStatus('url1', 'error')
-    console.log(result)
-    result = await op.updateStatus('url2', 'error')
-    console.log(result)
-    result = await op.retry('url1')
-    console.log(result)
-    result = await op.getByStatus('waiting')
-    console.log(result)
-    result = await op.updateStatus('url2', 'downloading')
-    console.log(result)
-    result = await op.getByStatus('not-existing-status')
-    console.log(result)
-
-}
-//testit()
-main()
-/*
-db.serialize(() => {
-    create()
-    dump(all => console.log('all', all))
-    app.listen(PORT, err => {
-        if (err) console.log(err);
-        console.log("Server listening on PORT", PORT);
-    });
-    resumeStatus(e => {
-        console.log('resumed',e)
-    })
-    treat()
-})
-*/
-
-
 
 //app.post('/', (req, res) => addURL(req.body.url, (error) => res.json({ url, error })))
 //app.get('/', (req, res) => dump(rows => res.json(rows)))
+main()
