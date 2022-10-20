@@ -1,4 +1,4 @@
-# yet another ytdl web interface 
+# yet another ytdl (web) gui
 
 ## Usage
 
