@@ -8,7 +8,7 @@
     "dev": "npx webpack --mode=development --watch",
     "serve": "npx webpack serve --mode=development",
     "build": "npx webpack --mode=production",
-    "start": "npm run build"
+    "start": "node src/index.js"
   },
   "author": "Your Name <me@example.com> (http://example.com/)",
   "license": "ISC",
