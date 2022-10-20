@@ -34,7 +34,7 @@ app.ws('/ws', async (ws, req) => {
     ws.on('message', async data => {
         wslog('received client message', data)
         const msg = JSON.parse(data)
-        if (msg.get === 'downloads') {
+        if (msg.type === 'get-downloads') {
             wslog('client requires dumps')
             const result = await op.dump()
             if (result.rows.length) {

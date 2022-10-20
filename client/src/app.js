@@ -56,7 +56,7 @@ const send = msg => ws.send(JSON.stringify(msg))
 const wsApi = {
     addUrl: url => send({ type: 'add-url', url }),
     retry: url => send({ type: 'retry-url', url }),
-    getDownloads: () => send({ get: 'downloads' }),
+    getDownloads: () => send({ type: 'get-downloads' }),
     purge: () => send({ type : 'purge'}),    
 }
 ws.onopen = () => {
