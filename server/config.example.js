@@ -1,5 +1,6 @@
-export default {
+export default () => ({
     YT_DLP_BIN: '/path/to/yt-dlp',
     BASE_DOWNLOAD_PATH: '/path/to/base/download/path',
-    PORT:'61661'
-}
+    DB_FILENAME : 'database.db', // ':memory:'
+    PORT:'61661',
+})

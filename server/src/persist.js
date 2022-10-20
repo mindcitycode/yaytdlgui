@@ -1,6 +1,8 @@
 import sqlite3 from 'sqlite3'
 import exitHook from 'async-exit-hook'
 import { log } from './log.js'
+import config from '../config.js'
+const { DB_FILENAME } = config()
 
 export const dblog = (...r) => log('db', ...r)
 
@@ -9,7 +11,6 @@ exitHook((...a) => {
     db.close();
 });
 
-const DB_FILENAME = 'database.db' // ':memory:'
 const db = new sqlite3.Database(DB_FILENAME);
 
 const dbPromise = fName => (sql, ...p) => new Promise((accept, reject) => {

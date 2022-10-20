@@ -6,7 +6,7 @@ import config from '../config.js'
 const {
     YT_DLP_BIN,
     BASE_DOWNLOAD_PATH
-} = config
+} = config()
 
 const todayDirectory = () => {
     const date = new Date()

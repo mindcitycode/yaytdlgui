@@ -4,8 +4,8 @@ import expressWs from 'express-ws';
 import { log } from './log.js'
 import { op, dblog } from './persist.js'
 
-import CONFIG from '../config.js'
-const { PORT } = CONFIG
+import config from '../config.js'
+const { PORT } = config()
 
 // http server
 const app = expressWs(express()).app
