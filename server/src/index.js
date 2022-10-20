@@ -4,12 +4,14 @@ import expressWs from 'express-ws';
 import { log } from './log.js'
 import { op, dblog } from './persist.js'
 
-const PORT = 61661;
+import CONFIG from '../config.js'
+const { PORT } = CONFIG
 
 // http server
 const app = expressWs(express()).app
 app.use(cors())
 app.use(express.json());
+
 app.use(express.static('../client/dist'))
 
 // websocket server
@@ -139,13 +141,12 @@ const main = async () => {
     {
         // start websocket webserver
         app.listen(PORT, err => {
-            if (err) wslog("Cannot start server",err);
+            if (err) wslog("Cannot start server", err);
             wslog("Server listening on PORT", PORT);
         });
     }
 }
 
-
+//app.get('/naze', (req, res) => res.json({poupuou:'flouflou'}))
 //app.post('/', (req, res) => addURL(req.body.url, (error) => res.json({ url, error })))
-//app.get('/', (req, res) => dump(rows => res.json(rows)))
 main()
