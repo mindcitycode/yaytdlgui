@@ -1,6 +1,6 @@
 # ytdl web interface 
 
-# Usage
+## Usage
 
 write a `server/config.js` config file in `server/` dir (see `server/config.example.js`)
 
@@ -16,6 +16,6 @@ npm start
 
 point browser to http://localhost:61661
 
-# License
+## License
 
 licensed under the GNU GENERAL PUBLIC LICENSE Version 3
