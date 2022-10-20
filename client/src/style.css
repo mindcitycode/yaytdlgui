@@ -1,0 +1,73 @@
+html,body, tr {
+    margin:0px;
+    padding:0px;
+    border:0px;
+}
+body {
+    background-color: black;
+    color: white;
+    font-family: monospace;
+    font-size: 11px;    
+}
+div.add-box  {
+    width : 100%;
+}
+div.add-box textarea {
+    min-width: 90%;
+    min-height: 3em;
+}
+table, tr  {
+    border-collapse: collapse; 
+    border-style: solid;
+    border-width:thin;
+    border-color:black;
+}
+td.download-status {
+    min-width: 9em;
+    text-align: center;
+    overflow: hidden;
+    background-color: blue;
+}
+td.download-retry {
+    min-width: 4em;
+    text-align: center;
+    overflow: hidden;
+    background-color: yellow;
+}
+td.download-date {
+    min-width: 14em;
+    text-align: center;
+    overflow: hidden;
+    background-color: brown;
+}
+td.download-url {
+    /*max-width: 40em;*/
+    overflow: hidden;
+    background-color: green;
+    white-space: nowrap;
+}
+table.download-progress{
+    margin-bottom : 1em;
+}
+td.progress-percent{
+    min-width: 5em;
+    text-align: center;
+    background-color: blue;
+}
+td.progress.size {
+    min-width: 8em;
+    text-align: center;
+}
+td.progress-speed{
+    min-width: 8em;
+    text-align: right;
+}
+td.progress-eta{
+    min-width: 8em;
+    text-align: center;
+    background-color: brown;
+}
+td.progress-url{
+    text-align: left;
+    background-color: green;
+}
