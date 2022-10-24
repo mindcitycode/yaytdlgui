@@ -4,3 +4,5 @@ server/node_modules/
 server/database.db
 server/config.js
 server/dist
+dl-server.service
+run-dl-server.bash
