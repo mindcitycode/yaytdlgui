@@ -23,4 +23,4 @@ point browser to http://localhost:61661
 
 ## license
 
-yaytdlgui is licensed under the GNU GPLV3+ license
+yaytdlgui is licensed under the AGPL-3.0-only license

@@ -10,6 +10,6 @@
     "start":"(cd server && npm start)"
   },
   "author": "mindcitycode <mindcity@proton.me>",
-  "license": "GNU GPLV3+",
+  "license": "AGPL-3.0-only",
   "deploymentsExample" : "none"
 }
