@@ -10,5 +10,6 @@
     "start":"(cd server && npm start)"
   },
   "author": "mindcitycode <mindcity@proton.me>",
-  "license": "GNU GPLV3+"
+  "license": "GNU GPLV3+",
+  "deploymentsExample" : ""
 }
