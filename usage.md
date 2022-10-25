@@ -1,7 +1,3 @@
-# yet another ytdl (web) gui
-
-## Usage
-
 write a `server/config.js` config file in `server/` dir (see `server/config.example.js`)
 
         export default () => ({
@@ -11,11 +7,9 @@ write a `server/config.js` config file in `server/` dir (see `server/config.exam
             PORT:'61661',
         })
 
-npm install
-npm start
+install and start server
+
+       npm install
+       npm start
 
 point browser to http://localhost:61661
-
-## License
-
-licensed under the GNU GENERAL PUBLIC LICENSE Version 3
